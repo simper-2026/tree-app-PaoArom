@@ -28,7 +28,7 @@ public class BinaryTree
 
     public string InOrder()
     {
-        return "";
+        return InOrderRecursive(_root);
     }
 
     private string InOrderRecursive(Node? node)
@@ -44,14 +44,5 @@ public class BinaryTree
 
         return $"{left} {current} {right}".Trim();
     }
-
-    public int Height()
-    {
-        return 0;
-    }
-
-    public string ToMermaid()
-    {
-        return "graph TD";
-    }
+   
 }
