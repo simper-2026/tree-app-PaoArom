@@ -61,7 +61,7 @@ public class BinaryTree
         int leftHeigh = HeightRecursive(node.Left);
         int rightHeight = HeightRecursive(node.Right);
 
-        return 1 + Math.Max(leftHeigh, rightHeight);
+        return Math.Max(leftHeigh, rightHeight) + 1 ;
     }
     public string ToMermaid()
     {
@@ -84,40 +84,40 @@ public class BinaryTree
         if (node == null)
             return "";
 
+        if(node.Left == null && node.Right == null)
+        {
+            return "";
+        }
         string result = "";
 
-        if(node.Left != null && node.Right != null)
+        if (node.Left != null)
         {
-            result += "    " + node.Value + " --> " + node.Left.Value + "\n";
-            _edgeIndex++;
-            result += "    " + node.Value + " --> " + node.Right.Value + "\n";
-            _edgeIndex++;
-            result += MermaidRecursive(node.Left);
-            result += MermaidRecursive(node.Right);
-        }
-
-        else if (node.Left != null)
-        {
-            result += "    " + node.Value + " --> " + node.Left.Value + "\n";
-            _edgeIndex++;
-            string phantomMode = "_ph" + _edgeIndex;
-            result += "    " + node.Value + " --> " + phantomMode + "[ ]\n";
-            result += "    linkStyle " + _edgeIndex + " stroke:none,stroke-width:0,fill:none\n";
-            result += "    style " + phantomMode + " fill:none,stroke:none,color:none\n";
+            result += $"{node.Value} --> {node.Left.Value}\n";
             _edgeIndex++;
             result += MermaidRecursive(node.Left);
         }
-
-        else if (node.Right != null)
+        else
         {
-            string phantomMode = "_ph" + _edgeIndex;
-            result += "    " + node.Value + " --> " + phantomMode + "[ ]\n";
-            result += "    linkStyle " + _edgeIndex + " stroke:none,stroke-width:0,fill:none\n";
-            result += "    style " + phantomMode + " fill:none,stroke:none,color:none\n";
+            string phantomMode = $"_ph{_edgeIndex}";
+            result += $"{node.Value} --> {phantomMode}[ ]\n";
+            result += $"linkStyle {_edgeIndex} stroke:none,stroke-width:0,fill:none\n";
+            result += $"style {phantomMode} fill:none,stroke:none,color:none\n";
             _edgeIndex++;
-            result += "    " + node.Value + " --> " + node.Right.Value + "\n";
+        }
+
+        if (node.Right != null)
+        {
+            result += $"{node.Value} --> {node.Right.Value}\n";
             _edgeIndex++;
             result += MermaidRecursive(node.Right);
+        }
+        else
+        {
+            string phantomMode = $"_ph{_edgeIndex}";
+            result += $"{node.Value} --> {phantomMode}[ ]\n";
+            result += $"linkStyle {_edgeIndex} stroke:none,stroke-width:0,fill:none\n";
+            result += $"style {phantomMode} fill:none,stroke:none,color:none\n";
+            _edgeIndex++;
         }
 
         return result;
