@@ -3,6 +3,8 @@ public class Node
     private int _value;
     public Node? Left {get; set;}
     public Node? Right {get; set;}
+    public Node? Parent {get; set;}
+    public int Height {get; set;}
     public int Value
     {
         get{return _value;}
@@ -13,5 +15,7 @@ public class Node
         _value = value;
         Left = left;
         Right = right;
+        Parent = null;
+        Height = 0;
     }
 }

@@ -1,7 +1,7 @@
 public class BinaryTree
 {
     private Node? _root;
-    private int _edgeIndex = 0;
+    private int _edgeIndex;
 
     public void Insert(int value)
     {
@@ -65,6 +65,8 @@ public class BinaryTree
     }
     public string ToMermaid()
     {
+        _edgeIndex = 0;
+        
         if (_root == null)
         {
             return "graph TD\n    empty[\"(empty tree)\"]";
@@ -72,10 +74,9 @@ public class BinaryTree
 
         if (_root.Left == null && _root.Right == null)
         {
-            return "graph TD\n    " + _root.Value;
+            return "graph TD\n" + _root.Value;
         }
 
-        _edgeIndex = 0;
         return "graph TD\n" + MermaidRecursive(_root);
     }
 
@@ -88,6 +89,7 @@ public class BinaryTree
         {
             return "";
         }
+
         string result = "";
 
         if (node.Left != null)
@@ -102,7 +104,7 @@ public class BinaryTree
             result += $"{node.Value} --> {phantomMode}[ ]\n";
             result += $"linkStyle {_edgeIndex} stroke:none,stroke-width:0,fill:none\n";
             result += $"style {phantomMode} fill:none,stroke:none,color:none\n";
-            _edgeIndex++;
+           _edgeIndex++;
         }
 
         if (node.Right != null)
